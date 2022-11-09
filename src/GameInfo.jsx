@@ -1,12 +1,12 @@
 import React from 'react'
 
-function Gamebuttons({clickHandlerRoll, clickHandlerHold, reset}) {
+function GameInfo({clickHandlerRoll, clickHandlerHold, reset}) {
   return (
-    <div className='gamebuttons'>
+    <div className='gameinfo'>
         <button className='roll' onClick={clickHandlerRoll}>Roll</button>
         <button className='hold' onClick={clickHandlerHold}>Hold</button>
     </div>
   )
 }
 
-export default Gamebuttons
+export default GameInfo 

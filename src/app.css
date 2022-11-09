@@ -53,39 +53,36 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 0 50px;
   text-align: center;
+  padding: 0 50px;
   position: relative;
 }
 #root .gamepage > :first-child {
   border-right: 3px solid white;
 }
 #root .gamepage > .active {
-  color: #ef30c5;
+  color: #ef30c5 !important;
   text-shadow: -3px 6px 0 #000;
 }
-#root .gamepage > *:not(.gamebuttons) {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+#root .gamepage > *:not(.gameinfo) {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
-#root .gamepage > *:not(.gamebuttons) > h3 {
-  font-size: 50px;
+#root .gamepage > *:not(.gameinfo) > h2 {
+  align-self: center;
 }
-#root .gamepage > *:not(.gamebuttons) > .current-score {
+#root .gamepage > *:not(.gameinfo) > .current-score {
   font-size: 25px;
-  color: white;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 40px;
-  border: 2px solid white;
-  border-radius: 10px;
   padding: 40px;
-  box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.6784313725);
 }
-#root .gamepage > .gamebuttons {
+#root .gamepage > *:not(.gameinfo) > .current-score h3 {
+  font-size: 50px;
+}
+#root .gamepage > .gameinfo {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -97,8 +94,42 @@ body {
 #root .gamepage > .dice {
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 50%;
   transform: translate(-50%, -50%);
+}
+#root .gamepage > .gameover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ef30c5;
+  text-shadow: -3px 6px 0 #000;
+  font-size: 25px;
+  transition: all 0.3s;
+}
+#root .gamepage > .gameover h2 {
+  font-size: 50px;
+  align-self: flex-end;
+  padding-bottom: 20px;
+}
+#root .gamepage > .gameover h3 {
+  color: white;
+  padding-bottom: 50px;
+}
+#root .gamepage > .gameover button {
+  font-size: 20px;
+}
+#root .gamepage > .gameover .rematch-container {
+  align-self: flex-start;
 }
 
 /*# sourceMappingURL=app.css.map */

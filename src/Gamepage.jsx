@@ -1,7 +1,19 @@
 import Gameboard from './Gameboard'
-import Gamebuttons from './Gamebuttons'
-import { useReducer } from 'react'
+import GameInfo from './GameInfo'
+import { useReducer, useEffect } from 'react'
 import Dice from './Dice'
+import GameOver from './GameOver'
+
+const initialState = {
+    diceNumber: 0,
+    finalDiceNumber: 0,
+    player1Score: 0,
+    player2Score: 0,
+    player1Turn: true,
+    diceReady: true,
+    gameOver: false,
+    winCondition: 100,
+}
 
 function reducer(state, action) {
     switch (action.type) {
@@ -10,11 +22,6 @@ function reducer(state, action) {
                 ...state,
                 diceNumber: action.payload,
                 diceReady: false,
-            }
-        case 'hold':
-            return {
-                ...state,
-                // finalDiceNumber: action.payload
             }
         case 'finalRoll':
             return {
@@ -27,7 +34,7 @@ function reducer(state, action) {
                 ...state,
 
                 player1Score: state.player1Turn ? state.player1Score + state.finalDiceNumber : state.player1Score,
-                
+
                 player2Score: !state.player1Turn ? state.player2Score + state.finalDiceNumber : state.player2Score,
             }
         case 'switchTurn':
@@ -35,21 +42,31 @@ function reducer(state, action) {
                 ...state,
                 player1Turn: !state.player1Turn,
             }
+        case 'gameOver':
+            return {
+                ...state,
+                gameOver: true,
+            }
+        case 'reset': {
+            return initialState
+        }
         default:
             return state
     }
 }
 
-function Gamepage() {
-    const [state, dispatch] = useReducer(reducer, {
-        diceNumber: 0,
-        finalDiceNumber: 0,
-        player1Score: 0,
-        player2Score: 0,
 
-        player1Turn: true,
-        diceReady: true,
-    })
+function Gamepage() {
+
+    const [state, dispatch] = useReducer(reducer,
+        initialState
+    )
+
+    useEffect(() => {
+        if (state.player1Score >= state.winCondition || state.player2Score >= state.winCondition) {
+            dispatch({ type: 'gameOver' })
+        }
+    }, [state.player1Score, state.player2Score])
 
 
     async function roll() {
@@ -58,21 +75,28 @@ function Gamepage() {
 
             for (let i = 0; i < Math.random() * 50 + 10; i++) {
                 n = Math.floor(Math.random() * 6) + 1
-                console.log(n);
-
                 dispatch({ type: 'roll', payload: n })
-                await new Promise(r => setTimeout(r, 10 * i))
+                await new Promise(r => setTimeout(r, 6 * i))
             }
 
-            console.log(n);
-            ['finalRoll', 'setScore', 'switchTurn'].forEach(action => {
-                dispatch({ type: action, payload: n })
-            })
+
+            if (n === 1) {
+                dispatch({ type: 'gameOver' })
+            } else {
+                ['finalRoll', 'setScore', 'switchTurn'].forEach(action => {
+                    dispatch({ type: action, payload: n })
+                })
+            }
+
         }
     }
 
     const hold = () => {
         dispatch({ type: 'switchTurn' })
+    }
+
+    const rematch = () => {
+        dispatch({ type: 'reset' })
     }
 
 
@@ -88,12 +112,13 @@ function Gamepage() {
                 score={state.player2Score}
                 diceNumber={0}
             />
-            <Gamebuttons
+            <GameInfo
                 clickHandlerRoll={roll}
                 clickHandlerHold={hold}
             />
 
             <Dice diceNumber={state.diceNumber} />
+            {state.gameOver && <GameOver winner={state.player1Turn} clickHandler={rematch} />}
         </div>
     )
 }

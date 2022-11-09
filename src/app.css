@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: #202020;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 16px;
+  color: white;
+  text-shadow: -3px 6px 0 #000;
+  margin: 0;
+}
+
+#root {
+  height: 100vh;
+}
+#root .homepage {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: 20px;
+}
+#root .homepage h1 {
+  font-size: 4rem;
+}
+#root .homepage .play-game {
+  align-self: flex-start;
+}
+#root button {
+  background-color: #ef30c5;
+  font-family: "Press Start 2P", sans-serif;
+  padding: 10px 20px;
+  color: white;
+  text-shadow: -3px 6px 0 #000;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.6784313725);
+  transition: all 0.2s ease-in-out;
+}
+#root button:hover:hover {
+  cursor: pointer;
+  transform: translate(0, -4px);
+  box-shadow: 0px 12px 0px 0px rgba(0, 0, 0, 0.6784313725);
+}
+#root .gamepage {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 50px;
+  text-align: center;
+  position: relative;
+}
+#root .gamepage > :first-child {
+  border-right: 3px solid white;
+}
+#root .gamepage > .active {
+  color: #ef30c5;
+  text-shadow: -3px 6px 0 #000;
+}
+#root .gamepage > *:not(.gamebuttons) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+#root .gamepage > *:not(.gamebuttons) > h3 {
+  font-size: 50px;
+}
+#root .gamepage > *:not(.gamebuttons) > .current-score {
+  font-size: 25px;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.6784313725);
+}
+#root .gamepage > .gamebuttons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 50px;
+}
+#root .gamepage > .dice {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+
+/*# sourceMappingURL=app.css.map */

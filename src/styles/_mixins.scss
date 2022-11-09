@@ -1,0 +1,8 @@
+// define a hover mixin
+@mixin hover {
+    &:hover {
+        cursor: pointer;
+        transform: translate(0, -4px);
+        box-shadow: 0px 12px 0px 0px #000000ad;
+    }
+}
